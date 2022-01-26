@@ -1,0 +1,81 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+    public class JdbcInsertstudent {
+
+    public static void main(String[] args) {
+       
+   String dbURL = "jdbc:mysql:3306//192.168.0.102:3306/studentdb";
+   String username = "dbstudent";
+   String password = "dbstudent";
+
+      
+try {
+    Class.forName("com.mysql.jdbc.Driver");    
+    Connection conn = DriverManager.getConnection(dbURL, username, password);
+    String sql = "INSERT INTO student (name, password, no, dob,doj)
+         
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, "student name");
+            statement.setString(2, "secretpass");
+            statement.setString(3, "student no");
+            statement.setString(4, "student date of birth");
+            statement.setString(5, "student date of joining");
+           
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new student was inserted successfully!");
+            }
+
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }     
+         catch (Exception e) {
+            e.printStackTrace();
+          }
+  
+    }
+}
+String sql = "SELECT * FROM student";
+ 
+Statement statement = conn.createStatement();
+ResultSet result = statement.executeQuery(sql);
+ 
+int count = 0;
+ 
+while (result.next()){
+    String name = result.getString(2);
+    String pass = result.getString(3);
+    String fullname = result.getString("studentname");
+    String email = result.getString("student no");
+ 
+    String output = "student #%d: %s - %s - %s - %s";
+    System.out.println(String.format(output, ++count, name, no, dob,doj,));
+}
+
+String sql = "UPDATE users SET password,name, doj WHERE studentname=?";
+ 
+PreparedStatement statement = conn.prepareStatement(sql);
+statement.setString(1, "enter the student pass");
+statement.setString(2, "enter the student name");
+statement.setString(3, "enter the student no");
+statement.setString(4, "enter the student date of birth");
+statement.setString(5, "enter the student date of joining");
+ 
+int rowsUpdated = statement.executeUpdate();
+if (rowsUpdated > 0) {
+    System.out.println("An existing user was updated successfully!");
+}
+
+String sql = "DELETE FROM users WHERE username=?";
+ 
+PreparedStatement statement = conn.prepareStatement(sql);
+statement.setString(1, "doj");
+ 
+int rowsDeleted = statement.executeUpdate();
+if (rowsDeleted > 0) {
+    System.out.println("A user was deleted successfully!");
+}
